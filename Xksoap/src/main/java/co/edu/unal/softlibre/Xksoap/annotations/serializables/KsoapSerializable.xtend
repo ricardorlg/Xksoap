@@ -9,10 +9,11 @@ import org.eclipse.xtend.lib.macro.TransformationContext
 import org.eclipse.xtend.lib.macro.declaration.ClassDeclaration
 import org.eclipse.xtend.lib.macro.declaration.InterfaceDeclaration
 import org.eclipse.xtend.lib.macro.declaration.MutableClassDeclaration
-import org.eclipse.xtend.lib.macro.declaration.TypeReference
 import org.ksoap2.serialization.KvmSerializable
 import org.ksoap2.serialization.SoapObject
 import org.ksoap2.serialization.SoapPrimitive
+
+import static co.edu.unal.softlibre.Xksoap.utils.Utils.*
 
 @Active(typeof(ksoapSerializableCompilationParticipant))
 annotation KsoapSerializable {
@@ -55,7 +56,7 @@ class ksoapSerializableCompilationParticipant extends AbstractClassProcessor {
 								«ENDIF»
 								return «clazz.declaredFields.size»+count;
 							«ENDIF»
-								''']
+						''']
 				]
 			} else if (method.simpleName.equalsIgnoreCase("getProperty")) {
 				clazz.addMethod(method.simpleName) [
@@ -176,28 +177,4 @@ class ksoapSerializableCompilationParticipant extends AbstractClassProcessor {
 		]
 	}
 
-	def typeConverted(TypeReference reference, String paramName) {
-		switch (reference.simpleName) {
-			case "Boolean":
-				"Boolean.parseBoolean(" + paramName + ".toString())"
-			case "Long":
-				"Long.parseLong(" + paramName + ".toString())"
-			case "Integer":
-				"Integer.parseInt(" + paramName + ".toString())"
-			case "String":
-				paramName + ".toString()"
-			case "Float":
-				"Float.parseFloat(" + paramName + ".toString())"
-			case "Double":
-				"Double.parseDouble(" + paramName + ".toString())"
-			case "Date":
-				"utils.DatesUtils.parses(" + paramName + ".toString())"
-			case "Character":
-				paramName + ".toString().charAt(0)"
-			case "byte[]":
-				"org.kobjects.base64.Base64.decode(" + paramName + ".toString())"
-			default:
-				"(" + reference.simpleName + ")" + paramName
-		}
-	}
 }
