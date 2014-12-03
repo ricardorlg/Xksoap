@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>co.edu.unal.softlibre</groupId>
 	<artifactId>Xksoap</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>xtend-quickstart</name>
+	<version>1-Beta</version>
+	<name>Xksoap</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xtend.version>2.7.2</xtend.version>
